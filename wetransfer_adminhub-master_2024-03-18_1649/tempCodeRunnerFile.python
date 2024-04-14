@@ -1,0 +1,18 @@
+from fabric import Connection
+
+# Define the hosts you want to connect to
+hosts = ['user@hostname1', 'user@hostname2']  # Replace with actual SSH usernames and hostnames
+
+# Define the command you want to execute remotely
+command = 'ls -l'
+
+def execute_command_on_hosts(hosts, command):
+    for host in hosts:
+        print(f"Executing command '{command}' on host '{host}'")
+        with Connection(host) as conn:
+            result = conn.run(command, hide=True)  # Execute the command on the remote host
+            print(f"Output from {host}:")
+            print(result.stdout.strip())  # Print the output of the command executed on the remote host
+
+if __name__ == "__main__":
+    execute_command_on_hosts(hosts, command)
